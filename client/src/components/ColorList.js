@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import {useHistory, useParams} from 'react-router-dom'
+
+import {useHistory} from 'react-router-dom'
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialColor = {
@@ -12,8 +12,8 @@ const ColorList = ({ colors, updateColors, getColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
-  const {id} = useParams()
-  const history = useHistory()
+  
+  
 
   const editColor = color => {
     setEditing(true);
@@ -28,7 +28,7 @@ const ColorList = ({ colors, updateColors, getColors }) => {
     axiosWithAuth()
     .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(res => {
-      console.log(id)
+      
       updateColors(colors.map((color) => {
         if(color.id === colorToEdit.id){
           return colorToEdit
@@ -36,7 +36,7 @@ const ColorList = ({ colors, updateColors, getColors }) => {
           return color
         }
       }))
-      history.push("/protected")
+      
     })
     .catch(err => {
       console.log(err)
@@ -49,7 +49,7 @@ const ColorList = ({ colors, updateColors, getColors }) => {
     .delete(`/api/colors/${color.id}`)
     .then(res => {
       updateColors(colors)
-      history.push("/protected")
+      
     })
     .catch(err => {
       console.log(err)
