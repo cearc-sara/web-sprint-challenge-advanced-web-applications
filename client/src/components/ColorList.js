@@ -8,7 +8,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, getColors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -52,6 +52,9 @@ const ColorList = ({ colors, updateColors }) => {
     })
     .catch(err => {
       console.log(err)
+    })
+    .finally(() => {
+      getColors()
     })
   };
 
